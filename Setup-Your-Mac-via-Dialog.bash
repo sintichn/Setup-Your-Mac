@@ -367,8 +367,8 @@ jamfBinary="/usr/local/bin/jamf"
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
 welcomeTitle="Welcome to your new Mac, ${loggedInUserFirstname}!"
-welcomeMessage="Please enter your Mac's **Asset Tag**, select your preferred **Configuration** then click **Continue** to start applying settings to your new Mac.  \n\nOnce completed, the **Wait** button will be enabled and you'll be able to review the results before restarting your Mac.  \n\nIf you need assistance, please contact the Help Desk: +1 (801) 555-1212.  \n\n---  \n\n#### Configurations  \n- **Required:** Minimum organization apps  \n- **Recommended:** Required apps and Microsoft Office  \n- **Complete:** Recommended apps, Adobe Acrobat Reader and Google Chrome"
-welcomeBannerImage="https://img.freepik.com/free-photo/yellow-watercolor-paper_95678-446.jpg"
+welcomeMessage="Please enter your Mac's 5-Digit **Asset Tag** Number located under the barcode on the bottom of your device, select your preferred **Configuration** then click **Continue** to start applying settings to your new Mac.  \n\nOnce completed, the **Wait** button will be enabled and you'll be able to review the results before restarting your Mac.  \n\nIf you need assistance, please contact D65 Tech Services: x4444 (emergencies only) or send a ticket to support@district65.net.  \n\n---  \n\n#### Configurations  \n- **Required:** Minimum organization apps  \n- **Recommended:** Required apps and Microsoft Office  \n- **Complete:** Recommended apps, Adobe Acrobat Reader and Google Chrome"
+welcomeBannerImage="https://img.freepik.com/free-vector/abstract-blue-geometric-polygonal-background_1035-18996.jpg?w=1060&t=st=1678480429~exp=1678481029~hmac=92269a18199171b33b9a2954161b459c89735ec3fefb8a8475365b6b007e328e"
 welcomeBannerText="Welcome to your new Mac, ${loggedInUserFirstname}!"
 welcomeCaption="Please review the above video, then click Continue."
 welcomeVideoID="vimeoid=803933536"
@@ -376,9 +376,9 @@ welcomeVideoID="vimeoid=803933536"
 # Welcome icon set to either light or dark, based on user's Apperance setting (thanks, @mm2270!)
 appleInterfaceStyle=$( /usr/bin/defaults read /Users/"${loggedInUser}"/Library/Preferences/.GlobalPreferences.plist AppleInterfaceStyle 2>&1 )
 if [[ "${appleInterfaceStyle}" == "Dark" ]]; then
-    welcomeIcon="https://cdn-icons-png.flaticon.com/512/740/740878.png"
+    welcomeIcon="/usr/local/jamfconnect/d65logo-jamfconnect.png"
 else
-    welcomeIcon="https://cdn-icons-png.flaticon.com/512/979/979585.png"
+    welcomeIcon="/usr/local/jamfconnect/d65logo-jamfconnect.png"
 fi
 
 
@@ -430,9 +430,9 @@ welcomeJSON='{
         },
         {   "title" : "Asset Tag",
             "required" : true,
-            "prompt" : "Please enter the seven-digit Asset Tag",
+            "prompt" : "Please enter the five-digit Asset Tag",
             "regex" : "^(AP|IP|CD)?[0-9]{7,}$",
-            "regexerror" : "Please enter (at least) seven digits for the Asset Tag, optionally preceed by either AP, IP or CD."
+            "regexerror" : "Please enter (at least) five digits for the Asset Tag, optionally preceed by either AP, IP or CD."
         }
     ],
   "selectitems" : [
