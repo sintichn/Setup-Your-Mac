@@ -1,11 +1,23 @@
 # CHANGELOG
 
+
+## 1.9.0
+### 01-Apr-2023
+- Previously installed apps with a `filepath` validation now display "Previously Installed" (instead of a generic "Installed"; [Issue No. 13](https://github.com/dan-snelson/Setup-Your-Mac/issues/13); thanks for the idea, @Manikandan!)
+- Allow "first name" to correctly handle names in "Lastname, Firstname" format ([Pull Request No. 11](https://github.com/dan-snelson/Setup-Your-Mac/pull/11); thanks @meschwartz!)
+- Corrected `PATH` (thanks, @Theile!)
+- `Configuration` no longer displays in SYM's `infobox` when `welcomeDialog` is set to `false` or `video` (Addresses [Issue No. 12](https://github.com/dan-snelson/Setup-Your-Mac/issues/12); thanks, @Manikandan!)
+- Updated icon hashes
+- `toggleJamfLaunchDaemon` function ([Pull Request No. 16](https://github.com/dan-snelson/Setup-Your-Mac/pull/16); thanks, @robjschroeder!)
+- Formatted policyJSON with [Erik Lynd's JSON Tools](https://marketplace.visualstudio.com/items?itemName=eriklynd.json-tools)
+- Corrected an issue where inventory would be submitted twice (thanks, @Manikandan!)
+
 ## 1.8.1
 ### 11-Mar-2023
 - Added `currentLoggedInUser` function to better validate `loggedInUser` (Addresses [Issue No. 2](https://github.com/dan-snelson/Setup-Your-Mac/issues/2))
 - Added new [Microsoft Office 365](/Setup-Your-Mac/Validations/Microsoft%20Office%20365.bash) Remote Validation ([Pull Request No. 3](https://github.com/dan-snelson/Setup-Your-Mac/pull/3))
 - Improved logging when `welcomeDialog` is `video` or `false` (Addresses [Issue No. 4](https://github.com/dan-snelson/Setup-Your-Mac/issues/4))
-- Create `overlayicon` from Self Service's custom icon (thanks, Mike Schwartz!)
+- Create `overlayicon` from Self Service's custom icon (thanks, @meschwartz!)
 
 ## 1.8.0
 ### 06-Mar-2023
