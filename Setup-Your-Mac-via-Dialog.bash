@@ -497,7 +497,7 @@ welcomeJSON='
                 "Risk Management",
                 "Sales",
                 "Strategic Initiatives & Programs",
-                "Technology"
+                "Technology",
             ]
         }
     ],
@@ -2327,5 +2327,7 @@ done
 
 # Output Line Number in `verbose` Debug Mode
 if [[ "${debugMode}" == "verbose" ]]; then updateScriptLog "# # # SETUP YOUR MAC VERBOSE DEBUG MODE: Line No. ${LINENO} # # #" ; fi
+
+
 
 finalise

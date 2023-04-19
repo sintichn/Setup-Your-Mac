@@ -59,9 +59,9 @@ fi
 
 scriptVersion="0.0.3"
 scriptResult="Prompt to Setup Your Mac (${scriptVersion}); "
-jamfProPolicyName="@Setup Your Mac"
-plistPath="/Library/Preferences/com.company.plist"
-plistKey="Setup Your Mac"
+jamfProPolicyName="Enrollment: Setup Your Mac"
+plistPath="/Library/Preferences/net.district65.sym.plist"
+plistKey="symComplete"
 selfServiceAppPath=$( /usr/bin/defaults read /Library/Preferences/com.jamfsoftware.jamf.plist self_service_app_path )
 dialogApp="/usr/local/bin/dialog"
 dialogCommandFile=$( /usr/bin/mktemp "/var/tmp/Prompt-to-Setup-Your-Mac.XXXXXXX" )
