@@ -106,7 +106,7 @@ function promptUser() {
     if [[ "${appleInterfaceStyle}" == "Dark" ]]; then
         icon="/System/Library/CoreServices/Finder.app/Contents/Resources/Finder.icns"
     else
-        icon="/System/Library/CoreServices/Finder.app/Contents/Resources/Finder.icns"
+        icon="/System/Library/CoreServices/Finder.app"
     fi
 
     # overlayicon=$( defaults read /Library/Preferences/com.jamfsoftware.jamf.plist self_service_app_path )
