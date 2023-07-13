@@ -1,14 +1,10 @@
-# Setup Your Mac (1.11.0) via swiftDialog (2.2)
+# Setup Your Mac via swiftDialog
 
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/dan-snelson/Setup-Your-Mac?display_name=tag) ![GitHub issues](https://img.shields.io/github/issues-raw/dan-snelson/Setup-Your-Mac) ![GitHub closed issues](https://img.shields.io/github/issues-closed-raw/dan-snelson/Setup-Your-Mac) ![GitHub pull requests](https://img.shields.io/github/issues-pr-raw/dan-snelson/Setup-Your-Mac) ![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed-raw/dan-snelson/Setup-Your-Mac)
 
-> Setup Your Mac (1.11.0) leverages several new features of `swiftDialog` `2.2` and includes bug fixes (see [CHANGELOG](CHANGELOG.md)).
->
-> > New in Setup Your Mac (1.10.0), **Dynamic Download Estimates** leverage the built-in macOS `networkQuality` binary to provide end-users with approximate Configuration durations, based on the _actual speed_ of _their_ specific Internet connection, which can aid end-users in selecting their preferred Configuration.
-> >
-> > Additionally, Mac Admins will appreciate the newly added **Slack** and **Microsoft Teams** integration, **Streamlined Customization** and more, making SYM (1.10.0) one of the most significant upgrades yet.
+> For BYOD and user-initiated enrollments, **Setup Your Mac** (1.9.0) now provides more detailed feedback for “Previously Installed” apps
 
-[<img alt="Setup Your Mac (1.11.0)" src="images/Setup_Your_Mac_1.11.0.png" />](https://snelson.us/sym)
+[<img alt="Setup Your Mac (1.9.0)" src="images/Setup_Your_Mac_1.9.0.jpg" />](https://snelson.us/sym)
 
 ## Introduction
 
@@ -20,6 +16,7 @@ Apple's Automated Device Enrollment helps streamline Mobile Device Management (M
 
 ### Script
 - [Setup-Your-Mac-via-Dialog.bash](Setup-Your-Mac-via-Dialog.bash)
+
 
 ---
 
