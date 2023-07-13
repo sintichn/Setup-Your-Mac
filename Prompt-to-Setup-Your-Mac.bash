@@ -59,9 +59,9 @@ fi
 
 scriptVersion="0.0.3"
 scriptResult="Prompt to Setup Your Mac (${scriptVersion}); "
-jamfProPolicyName="Enrollment: Setup Your Mac"
-plistPath="/Library/Preferences/net.district65.sym.plist"
-plistKey="symComplete"
+jamfProPolicyName="@Setup Your Mac"
+plistPath="/Library/Preferences/com.company.plist"
+plistKey="Setup Your Mac"
 selfServiceAppPath=$( /usr/bin/defaults read /Library/Preferences/com.jamfsoftware.jamf.plist self_service_app_path )
 dialogApp="/usr/local/bin/dialog"
 dialogCommandFile=$( /usr/bin/mktemp "/var/tmp/Prompt-to-Setup-Your-Mac.XXXXXXX" )
@@ -99,21 +99,18 @@ function promptUser() {
     dialogCheck
 
     title="Welcome to your new Mac!"
-    message="Please complete the following steps to apply D65 settings to your new Mac:  \n1. Login to the **D65 App Store**  \n2. Locate the **Setup Your Mac** policy  \n3. Click **Setup**  \n\nIf you need assistance, please contact the Tech Services Helpdesk:  \nx4444 and mention **New Mac Setup**."
+    message="Please complete the following steps to apply Church settings to your new Mac:  \n1. Login to the **Workforce App Store**  \n2. Locate the **Setup Your Mac** policy  \n3. Click **Setup**  \n\nIf you need assistance, please contact the GSD:  \n+1 (801) 555-1212 and mention **KB12345678**."
 
     appleInterfaceStyle=$( /usr/bin/defaults read /Users/"${loggedInUser}"/Library/Preferences/.GlobalPreferences.plist AppleInterfaceStyle 2>&1 )
 
     if [[ "${appleInterfaceStyle}" == "Dark" ]]; then
-        icon="/System/Library/CoreServices/Finder.app/Contents/Resources/Finder.icns"
+        icon="/System/Library/CoreServices/Finder.app"
     else
         icon="/System/Library/CoreServices/Finder.app"
     fi
 
-    # overlayicon=$( defaults read /Library/Preferences/com.jamfsoftware.jamf.plist self_service_app_path )
-  # Create `overlayicon` from Self Service's custom icon (thanks, @meschwartz!)
-  xxd -p -s 260 "$(defaults read /Library/Preferences/com.jamfsoftware.jamf self_service_app_path)"/Icon$'\r'/..namedfork/rsrc | xxd -r -p > /var/tmp/overlayicon.icns
-  overlayicon="/var/tmp/overlayicon.icns"
-  
+    overlayicon=$( defaults read /Library/Preferences/com.jamfsoftware.jamf.plist self_service_app_path )
+
     dialogCMD="$dialogApp --ontop --title \"$title\" \
     --message \"$message\" \
     --icon \"$icon\" \
@@ -286,21 +283,21 @@ function selfServiceLaunchValidation() {
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 # Validate the number of times the user has logged into Self Service
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-#
-# function selfServiceLoginValidation() {
-#
-#    if [[ ${selfServiceLogInstalled} == "Yes" ]]; then
-#        selfServiceLogins=$( /usr/bin/grep "user logged in" /Users/"${loggedInUser}"/Library/Logs/JAMF/selfservice.log | /usr/bin/wc -l | /usr/bin/tr -d ' ' )
-#    else
-#        scriptResult+="Something went sideways when checking the number of times ${loggedInUser} has logged in to \"${selfServiceAppPath}\"; exiting."
-#        echo "${scriptResult}"
-#        exit 1
-#    fi
-#
-# }
-#
-#
-#
+
+function selfServiceLoginValidation() {
+
+    if [[ ${selfServiceLogInstalled} == "Yes" ]]; then
+        selfServiceLogins=$( /usr/bin/grep "user logged in" /Users/"${loggedInUser}"/Library/Logs/JAMF/selfservice.log | /usr/bin/wc -l | /usr/bin/tr -d ' ' )
+    else
+        scriptResult+="Something went sideways when checking the number of times ${loggedInUser} has logged in to \"${selfServiceAppPath}\"; exiting."
+        echo "${scriptResult}"
+        exit 1
+    fi
+
+}
+
+
+
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 # Validate Jamf's log
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
@@ -398,9 +395,9 @@ fi
 # Check 3. Validate Logged-in User's Self Service Log
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
- selfServiceLogValidation
+selfServiceLogValidation
 
- if [[ ${selfServiceLogInstalled} == "No" ]]; then
+if [[ ${selfServiceLogInstalled} == "No" ]]; then
 
     scriptResult+="${loggedInUser}'s selfservice.log NOT found, launching \"${selfServiceAppPath}\"; "
     /usr/bin/su "${loggedInUser}" -c "/usr/bin/open \"${selfServiceAppPath}\""
@@ -431,27 +428,27 @@ scriptResult+="\"${selfServiceAppPath}\" has been launched for ${loggedInUser} $
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 # Check 5. Validate the number of times the user has logged into Self Service
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-#
-# selfServiceLoginValidation
-#
-# if [[ ${selfServiceLogins} -le "0" ]]; then
-#
-#    scriptResult+="${loggedInUser} has logged in to \"${selfServiceAppPath}\" ${selfServiceLogins} times; "
-#    /usr/bin/su "${loggedInUser}" -c "/usr/bin/open \"${selfServiceAppPath}\""
-#
-#    promptUser
-#
-#    echo "${scriptResult}"
-#    exit 0
-#
-# else
-#
-#    scriptResult+="${loggedInUser} has logged in to \"${selfServiceAppPath}\" ${selfServiceLogins} times; "
-#
-# fi
-#
-#
-#
+
+selfServiceLoginValidation
+
+if [[ ${selfServiceLogins} -le "0" ]]; then
+
+    scriptResult+="${loggedInUser} has logged in to \"${selfServiceAppPath}\" ${selfServiceLogins} times; "
+    /usr/bin/su "${loggedInUser}" -c "/usr/bin/open \"${selfServiceAppPath}\""
+
+    promptUser
+
+    echo "${scriptResult}"
+    exit 0
+
+else
+
+    scriptResult+="${loggedInUser} has logged in to \"${selfServiceAppPath}\" ${selfServiceLogins} times; "
+
+fi
+
+
+
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 # Check 6. Validate Jamf's log
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #

@@ -1,8 +1,74 @@
 # CHANGELOG
 
+## 1.11.0
+### 24-May-2023
+[Release-specific Blog Post](https://snelson.us/2023/05/setup-your-mac-1-11-0-via-swiftdialog-2-2/)
+- Updates for `swiftDialog` `2.2`
+  - Required `selectitems`
+  - New `activate` command to bring swiftDialog to the front
+  - Display Configurations as radio buttons
+- Report on RSR version (if applicable) [Pull Request No. 50](https://github.com/dan-snelson/Setup-Your-Mac/pull/50) thanks @drtaru!)
+- Specify a Configuration as Parameter `11` ([Pull Request No. 59](https://github.com/dan-snelson/Setup-Your-Mac/pull/59); thanks big bunches, @drtaru!. Addresses [Issue No. 58](https://github.com/dan-snelson/Setup-Your-Mac/issues/58); thanks for the idea, @nunoidev!)
+- Configuration Names and Descriptions as variables ([Pull Request No. 60](https://github.com/dan-snelson/Setup-Your-Mac/pull/60); great idea! thanks, @theadamcraig!)
+- Consolidated Jamf Pro-related webHookMessage variables; Set "Additional Comments" to "None" when there aren't any failures
+
+## 1.10.1
+### 22-May-2023
+[Release-specific Blog Post](https://snelson.us/2023/05/setup-your-mac-1-10-0-via-swiftdialog)
+- Removed "(beta)" from Dynamic Download Estimates
+- Added `promptForBuilding` and `promptForDepartment` to match other prompts for Welcome Screen ([Pull Request No. 55](https://github.com/dan-snelson/Setup-Your-Mac/pull/55); thanks @robjschroeder!)
+- Rearranged "Pre-flight Check: Validate Logged-in System Accounts"
+- Eliminated a visual "glitch" when `promptForConfiguration` is `false` and `configurationDownloadEstimation` is `true` (_Sort of_ addresses [Issue No. 56](https://github.com/dan-snelson/Setup-Your-Mac/issues/56); thanks for the heads-up, @rougegoat!)
+- Eliminated the visual "glitch" when `welcomeDialog` is `false`
+
+## 1.10.0
+### 08-May-2023
+[Release-specific Blog Post](https://snelson.us/2023/05/setup-your-mac-1-10-0-via-swiftdialog)
+- 🆕 **Dynamic Download Estimates** (Addresses [Issue No. 7](https://github.com/dan-snelson/Setup-Your-Mac/issues/7); thanks for the idea, @DevliegereM; heavy-lifting provided by @bartreardon!)
+    - Manually set `configurationDownloadEstimation` within the SYM script to `true` to enable
+    - New `calculateFreeDiskSpace` function will record free space to `scriptLog` before and after SYM execution
+        - Compare before and after free space values via: `grep "free" $scriptLog`
+    - Populate the following variables, in Gibibits (i.e., Total File Size in Gigabytes * 7.451), for each Configuration:
+        - `configurationCatchAllSize`
+        - `configurationOneSize`
+        - `configurationTwoSize`
+        - `configurationThreeSize`
+    - Specify an arbitrary value for `correctionCoefficient` (i.e., a "fudge factor" to help estimates match reality)
+        - Validate actual elapsed time with: `grep "Elapsed" $scriptLog`
+- 🔥 **Breaking Change** for users of Setup Your Mac prior to `1.10.0` 🔥 
+    - Added `recon` validation, which **must** be used when specifying the `recon` trigger (Addresses [Issue No. 19](https://github.com/dan-snelson/Setup-Your-Mac/issues/19))
+- Standardized formatting of `toggleJamfLaunchDaemon` function
+  - Added logging while waiting for installation of `${jamflaunchDaemon}`
+- Limit the `loggedInUserFirstname` variable to `25` characters and capitalize its first letter (Addresses [Issue No. 20](https://github.com/dan-snelson/Setup-Your-Mac/issues/20); thanks @mani2care!)
+- Added line break to `welcomeTitle` and `welcomeBannerText`
+- Replaced some generic "Mac" instances with hardware-specific model name (thanks, @pico!)
+- Replaced `verbose` Debug Mode code with `outputLineNumberInVerboseDebugMode` function (thanks, @bartreardon!)
+- Removed dependency on `dialogApp`
+- Check `bannerImage` and `welcomeBannerImage` ([Pull Request No. 22](https://github.com/dan-snelson/Setup-Your-Mac/pull/22) **AND** [Pull Request No. 24](https://github.com/dan-snelson/Setup-Your-Mac/pull/24) thanks @amadotejada!)
+- A "raw" unsorted listing of departments — with possible duplicates — is converted to a sorted, unique, JSON-compatible `departmentList` variable (Addresses [Issue No. 23](https://github.com/dan-snelson/Setup-Your-Mac/issues/23); thanks @rougegoat!)
+- The selected Configuration now displays in `helpmessage` (Addresses [Issue No. 17](https://github.com/dan-snelson/Setup-Your-Mac/issues/17); thanks for the idea, @master-vodawagner!)
+- Disable the so-called "Failure" dialog by setting the new `failureDialog` variable to `false` (Addresses [Issue No. 25](https://github.com/dan-snelson/Setup-Your-Mac/issues/25); thanks for the idea, @DevliegereM!)
+- Added function to send a message to Microsoft Teams [Pull Request No. 29](https://github.com/dan-snelson/Setup-Your-Mac/pull/29) thanks @robjschroeder!)
+- Added Building & Room User Input, Centralize User Input settings in one area [Pull Request No. 26](https://github.com/dan-snelson/Setup-Your-Mac/pull/26) thanks @rougegoat!)
+- Replaced Parameter 10 with webhookURL for Microsoft Teams messaging ([Pull Request No. 31](https://github.com/dan-snelson/Setup-Your-Mac/pull/31) @robjschroeder, thanks for the idea @colorenz!!)
+- Added an action card to the Microsoft Teams webhook message to view the computer's inventory record in Jamf Pro ([Pull Request No. 32](https://github.com/dan-snelson/Setup-Your-Mac/pull/32); thanks @robjschroeder!)
+- Additional User Input Flags ([Pull Request No. 34](https://github.com/dan-snelson/Setup-Your-Mac/pull/34); thanks @rougegoat!)
+- Corrected Dan's copy-pasta bug: Changed `--webHook` to `--data` ([Pull Request No. 36](https://github.com/dan-snelson/Setup-Your-Mac/pull/36); thanks @colorenz!)
+- Enable or disable any combination of the fields on the Welcome dialog ([Pull Request No. 37](https://github.com/dan-snelson/Setup-Your-Mac/pull/37); thanks big bunches, @rougegoat!!)
+- Moved various `shellcheck disable` codes sprinkled throughout script front-and-center to Line No. `2`
+- Add Remote Validation results of "Success" or "Installed" to update the List Item with "Installed" instead of "Running" ([Pull Request No. 41](https://github.com/dan-snelson/Setup-Your-Mac/pull/41); thanks @drtaru!)
+- Option to disable Banner Text ([Pull Request No. 42](https://github.com/dan-snelson/Setup-Your-Mac/pull/42); thanks, @rougegoat!)
+- Switch `policy -trigger` to `policy -event` (Addresses [Issue No. 38](https://github.com/dan-snelson/Setup-Your-Mac/issues/38); thanks for looking out for us, @delize!)
+- Resolves an issue when `promptForConfiguration` is NOT set to `true`, the `checkNetworkQualityConfigurations` function would display in the "Welcome" dialog (Addresses [Issue No. 46](https://github.com/dan-snelson/Setup-Your-Mac/issues/46); thanks, @jonlonergan!)
+- Corrected capitalization of `networkQuality`
+- Added `trigger` `validation` to "Elapsed Time" output
+- Updated `webhookMessage` to include Slack functionality ([Pull Request No. 48](https://github.com/dan-snelson/Setup-Your-Mac/pull/48); thanks @iDrewbs!)
+- Add button to computer record for Slack webhook ([Pull Request No. 49](https://github.com/dan-snelson/Setup-Your-Mac/pull/49); thanks @drtaru!)
+- Fix Banner Text displaying when set to False ([Pull Request No. 51](https://github.com/dan-snelson/Setup-Your-Mac/pull/51); thanks @rougegoat!)
 
 ## 1.9.0
 ### 01-Apr-2023
+[Release-specific Blog Post](https://snelson.us/2023/04/setup-your-mac-1-9-0-via-swiftdialog/)
 - Previously installed apps with a `filepath` validation now display "Previously Installed" (instead of a generic "Installed"; [Issue No. 13](https://github.com/dan-snelson/Setup-Your-Mac/issues/13); thanks for the idea, @Manikandan!)
 - Allow "first name" to correctly handle names in "Lastname, Firstname" format ([Pull Request No. 11](https://github.com/dan-snelson/Setup-Your-Mac/pull/11); thanks @meschwartz!)
 - Corrected `PATH` (thanks, @Theile!)
@@ -14,6 +80,7 @@
 
 ## 1.8.1
 ### 11-Mar-2023
+[Release-specific Blog Post](https://snelson.us/2023/03/setup-your-mac-1-8-0-via-swiftdialog/)
 - Added `currentLoggedInUser` function to better validate `loggedInUser` (Addresses [Issue No. 2](https://github.com/dan-snelson/Setup-Your-Mac/issues/2))
 - Added new [Microsoft Office 365](/Setup-Your-Mac/Validations/Microsoft%20Office%20365.bash) Remote Validation ([Pull Request No. 3](https://github.com/dan-snelson/Setup-Your-Mac/pull/3))
 - Improved logging when `welcomeDialog` is `video` or `false` (Addresses [Issue No. 4](https://github.com/dan-snelson/Setup-Your-Mac/issues/4))
@@ -38,6 +105,7 @@
 
 ## 1.7.2
 ### 28-Feb-2023
+[Release-specific Blog Post](https://snelson.us/2023/02/setup-your-mac-via-swiftdialog-1-7-0/)
 - Reordered Pre-Flight Check to not validate OS until AFTER Setup Assistant / Finder & Dock
 - Added `disabled` option for `requiredMinimumBuild`
 - Added check for Self Service's `brandingimage.png` (Addresses [Issue No. 40](https://github.com/dan-snelson/dialog-scripts/issues/40))
@@ -46,7 +114,7 @@
 
 ## 1.7.1
 ### 07-Feb-2023
-
+[Release-specific Blog Post](https://snelson.us/2023/02/setup-your-mac-via-swiftdialog-1-7-0/)
 - Addresses [Issue No. 35](https://github.com/dan-snelson/dialog-scripts/issues/35)
 - Improves user-interaction with `helpmessage` under certain circumstances (thanks, @bartreardon!)
 - Increased `debugMode` delay (thanks for the heads-up, @Lewis B!)
